@@ -1,384 +1,192 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Trophy, 
-  Play, 
-  ChevronRight, 
-  RotateCcw,
-  CheckCircle2,
-  ListOrdered,
-  Share2,
-  Copy
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Against Humanity</title>
+    <!-- Tailwind CSS for Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React and Babel for Browser Rendering -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #171717; }
+        .card-shadow { shadow-offset: 0px 10px; shadow-radius: 20px; shadow-color: rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
 
-/**
- * CARDS DATA
- * Standard set of prompt and response cards.
- */
-const CARDS_DATABASE = {
-  blackCards: [
-    { text: "What's that smell?", pick: 1 },
-    { text: "I drink to forget _.", pick: 1 },
-    { text: "That's how I want to die: _.", pick: 1 },
-    { text: "What's the next Happy Meal toy?", pick: 1 },
-    { text: "What's my secret superpower?", pick: 1 },
-    { text: "What did I bring back from Mexico?", pick: 1 },
-    { text: "Why am I sticky?", pick: 1 },
-    { text: "During sex, I like to think about _.", pick: 1 },
-    { text: "What's my anti-drug?", pick: 1 },
-    { text: "What's the new fad diet?", pick: 1 },
-    { text: "I'm not like other girls. I _.", pick: 1 },
-    { text: "What ended my last relationship?", pick: 1 },
-    { text: "He who controls _ controls the universe.", pick: 1 },
-    { text: "What gives me uncontrollable gas?", pick: 1 },
-    { text: "Coming to Broadway this season: _: The Musical.", pick: 1 },
-    { text: "What are my parents hiding from me?", pick: 1 },
-    { text: "What's the most emo thing ever?", pick: 1 },
-    { text: "TSA guidelines now prohibit _ on airplanes.", pick: 1 },
-    { text: "What's the gift that keeps on giving?", pick: 1 },
-    { text: "What's a girl's best friend?", pick: 1 },
-    { text: "Introducing the new X-box with _.", pick: 1 },
-    { text: "Next on ESPN2: The _ World Series.", pick: 1 },
-    { text: "What would Grandma find disturbing, yet oddly charming?", pick: 1 },
-    { text: "I got 99 problems but _ ain't one.", pick: 1 },
-    { text: "What's the most iconic duo?", pick: 1 },
-    { text: "What's the real reason the dinosaurs went extinct?", pick: 1 },
-    { text: "White people like _.", pick: 1 },
-    { text: "In the distant future, historians will agree that _ was the beginning of the end.", pick: 1 },
-    { text: "What did I get for Christmas?", pick: 1 },
-    { text: "What's the best way to get over a breakup?", pick: 1 },
-    { text: "My gym teacher got fired for _.", pick: 1 },
-    { text: "This is the way the world ends. Not with a bang but with _.", pick: 1 },
-    { text: "What will always get you laid?", pick: 1 },
-    { text: "What's my middle name?", pick: 1 },
-    { text: "The class field trip was ruined by _.", pick: 1 },
-    { text: "Maybe she's born with it. Maybe it's _.", pick: 1 },
-    { text: "What's the secret to a long-lasting marriage?", pick: 1 },
-    { text: "Science will never explain _.", pick: 1 },
-    { text: "What's the new national anthem?", pick: 1 },
-    { text: "I'm sorry, Professor, but I couldn't finish my homework because of _.", pick: 1 },
-    { text: "What is Batman's guilty pleasure?", pick: 1 },
-    { text: "When I am President, I will create the Department of _.", pick: 1 },
-    { text: "What's the best thing about being a billionaire?", pick: 1 },
-    { text: "MTV's new reality show features eight washed-up celebrities living with _.", pick: 1 },
-    { text: "What's the most terrifying thing in the world?", pick: 1 },
-    { text: "What is my true calling?", pick: 1 },
-    { text: "Every family has a secret, ours is _.", pick: 1 },
-    { text: "Wait, if you're here, then who's _?", pick: 1 },
-    { text: "Why am I so broke?", pick: 1 }
-  ],
-  whiteCards: [
-    "A bit of slap and tickle.", "A middle-aged man on a roller coaster.", "Active listening.", "Actually taking candy from a baby.", "An oversized lollipop.", "Being a motherfucking sorcerer.", "Dying.", "Eating all of the cookies.", "Friendly fire.", "Getting naked and watching C-SPAN.", "Grandma.", "Hormone injections.", "Kids with ass cancer.", "Licking things to claim them as your own.", "Meatloaf, again.", "Morgan Freeman's voice.", "My soul.", "Natural selection.", "Object permanence.", "Old-people smell.", "Poor life choices.", "Puberty.", "Seppuku.", "Sexting.", "Smallpox blankets.", "The American Dream.", "The Blood of Christ.", "The Force.", "The invisible hand of the market.", "The miracle of childbirth.", "The Pope.", "Waiting till marriage.", "Waking up half-naked in a Denny's parking lot.", "Whipping it out.", "72 virgins.",
-    "A salty surprise.", "The glass ceiling.", "The Patriarchy.", "Goblins.", "Being fabulous.", "Passive-aggressive Post-it notes.", "The Kool-Aid Man.", "Self-loathing.", "A literal mountain of cocaine.", "Fancy feast.", "Justin Bieber.", "An honest-to-god miracle.", "Glitter.", "Slightly too much eye contact.", "Awkward silence.", "The smell of fear.", "Total control.", "A disappointment to my parents.", "Hot cheese.", "Bees?", "Finger painting.", "The middle class.", "Emotional baggage.", "My collection of high-end vibrators.", "The wifi being down.", "Clickbait.", "Mansplaining.", "The inevitable heat death of the universe.", "A time-traveling paradox.", "Avocado toast.", "Social media validation.", "An unsolicited dick pic.", "Existential dread.", "Taco Bell.", "A tiny horse.", "Tax fraud.", "Florida Man.", "The dark web.", "Catfishing.", "The simulation crashing.", "Student loans.", "Cryptocurrency scams.", "A mid-life crisis.", "The ghost of Christmas past.", "A sequence of bad events.", "Pure unadulterated chaos.", "Gentrification.", "A participation trophy.", "The deep state.", "Climate change.", "The uncanny valley.", "An interpretive dance about capitalism.", "Gluten-free bread.", "A sentient sourdough starter.", "The 1%.", "A weirdly specific fetish.", "Being a functional adult.", "The constant screaming in my head.", "A long, sad look at a mirror.", "Meme culture.", "An aggressive squirrel.", "The sound of one hand clapping.", "Infinite loops.", "A glitch in the Matrix.", "Unfiltered thoughts.", "The taste of regret.", "A suspiciously cheap lawyer.", "Identity theft.", "A really bad tattoo.", "Aggressive yoga.", "The sheer audacity of this bitch.", "A well-timed fart.", "An unexpected pregnancy.", "The French.", "A black hole.", "Spontaneous human combustion.", "A dramatic reenactment.", "The concept of time.", "A cursed image.", "Modern art.", "A poorly phrased compliment.", "The dark side of the Moon.", "A surprise party that no one attended.", "My inner demons.", "A bag of magic beans.", "The terrifying realization that I am in control of my own life.", "An overpriced scented candle.", "A passive-aggressive email.", "The five-second rule.", "A series of unfortunate events.", "The sheer weight of existence.", "A microwave burrito.", "The subtle art of not giving a f*ck.", "A perfectly executed high-five.", "The feeling of wet socks.", "A sudden realization.", "The truth.", "A lie.", "The unknown."
-  ]
-};
-
-const MAX_ROUNDS = 10;
-
-const App = () => {
-  // --- Game State ---
-  const [gameState, setGameState] = useState('setup');
-  const [players, setPlayers] = useState([
-    { id: 1, name: 'Player 1', score: 0, hand: [] },
-    { id: 2, name: 'Player 2', score: 0, hand: [] }
-  ]);
-  const [roundNumber, setRoundNumber] = useState(1);
-  const [currentPlayerIdx, setCurrentPlayerIdx] = useState(0);
-  const [roundBlackCard, setRoundBlackCard] = useState(null);
-  const [allSubmissions, setAllSubmissions] = useState([]);
-  const [selectedWhiteCard, setSelectedWhiteCard] = useState(null);
-  const [deck, setDeck] = useState({ black: [], white: [] });
-  const [copyFeedback, setCopyFeedback] = useState(false);
-
-  // --- Logic ---
-  const shuffle = (array) => [...array].sort(() => Math.random() - 0.5);
-
-  const startGame = () => {
-    const whiteDeck = shuffle(CARDS_DATABASE.whiteCards);
-    const blackDeck = shuffle(CARDS_DATABASE.blackCards);
-
-    const initialPlayers = players.map((p, idx) => ({
-      ...p,
-      score: 0,
-      hand: whiteDeck.slice(idx * 20, (idx * 20) + 20) 
-    }));
-
-    setDeck({
-      white: whiteDeck.slice(40),
-      black: blackDeck.slice(1)
-    });
-    setPlayers(initialPlayers);
-    setRoundBlackCard(blackDeck[0]);
-    setRoundNumber(1);
-    setCurrentPlayerIdx(0);
-    setAllSubmissions([]);
-    setGameState('play');
-    window.scrollTo(0, 0);
-  };
-
-  const submitResponse = () => {
-    if (!selectedWhiteCard) return;
-
-    const newSub = {
-      playerIdx: currentPlayerIdx,
-      playerName: players[currentPlayerIdx].name,
-      blackCard: roundBlackCard,
-      whiteCard: selectedWhiteCard,
-      voted: false
-    };
-
-    const newAllSubmissions = [...allSubmissions, newSub];
-
-    // Remove card from hand
-    const updatedPlayers = players.map((p, idx) => {
-      if (idx === currentPlayerIdx) {
-        return { ...p, hand: p.hand.filter(c => c !== selectedWhiteCard) };
-      }
-      return p;
-    });
-    setPlayers(updatedPlayers);
-    setSelectedWhiteCard(null);
-
-    // Turn management
-    if (currentPlayerIdx === 0) {
-      setCurrentPlayerIdx(1);
-    } else {
-      if (roundNumber < MAX_ROUNDS) {
-        setRoundNumber(roundNumber + 1);
-        setCurrentPlayerIdx(0);
-        setRoundBlackCard(deck.black[0]);
-        setDeck({ ...deck, black: deck.black.slice(1) });
-      } else {
-        setGameState('judging');
-      }
-    }
-    setAllSubmissions(newAllSubmissions);
-    window.scrollTo(0, 0);
-  };
-
-  const voteForSubmission = (subIndex) => {
-    const sub = allSubmissions[subIndex];
-    if (sub.voted) return;
-
-    const updatedPlayers = [...players];
-    updatedPlayers[sub.playerIdx].score += 1;
-    setPlayers(updatedPlayers);
-    
-    const updatedSubs = allSubmissions.map((s, i) => i === subIndex ? { ...s, voted: true } : s);
-    setAllSubmissions(updatedSubs);
-
-    if (updatedSubs.every(s => s.voted)) {
-      setGameState('winner');
-    }
-  };
-
-  const shareResults = () => {
-    const resultsText = players.map(p => `${p.name}: ${p.score} pts`).join('\n') + 
-      `\n\nPlayed App Against Humanity!`;
-    
-    const textArea = document.createElement("textarea");
-    textArea.value = resultsText;
-    document.body.appendChild(textArea);
-    textArea.select();
-    try {
-      document.execCommand('copy');
-      setCopyFeedback(true);
-      setTimeout(() => setCopyFeedback(false), 2000);
-    } catch (err) {
-      console.error('Fallback copy failed', err);
-    }
-    document.body.removeChild(textArea);
-  };
-
-  // --- Views ---
-
-  if (gameState === 'setup') {
-    return (
-      <div className="min-h-screen bg-neutral-900 text-white flex flex-col items-center justify-center p-6 font-sans select-none">
-        <div className="max-w-md w-full text-center space-y-8">
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <h1 className="text-6xl font-black tracking-tighter uppercase mb-2 bg-gradient-to-br from-white to-neutral-500 bg-clip-text text-transparent">APP</h1>
-            <p className="text-neutral-400 font-bold uppercase tracking-widest text-sm">Against Humanity</p>
-          </div>
-          
-          <div className="bg-neutral-800 p-8 rounded-3xl border border-neutral-700 shadow-2xl space-y-6 animate-in zoom-in duration-500 delay-150">
-            <div className="space-y-4">
-              {players.map((p, i) => (
-                <div key={p.id} className="flex flex-col text-left">
-                  <label className="text-[10px] font-black text-neutral-500 uppercase ml-2 mb-1">Player {i+1} Name</label>
-                  <input 
-                    className="bg-neutral-900 border border-neutral-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-white outline-none transition-all font-bold text-white placeholder-neutral-600"
-                    placeholder={`Enter Player ${i+1} Name`}
-                    value={p.name}
-                    onChange={(e) => {
-                      const newPlayers = [...players];
-                      newPlayers[i].name = e.target.value;
-                      setPlayers(newPlayers);
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-
-            <button 
-              onClick={startGame}
-              className="w-full bg-white text-black py-4 rounded-2xl font-black text-lg hover:bg-neutral-200 transition-all flex items-center justify-center gap-2 active:scale-95 shadow-xl"
-            >
-              START BATTLE <Play size={20} fill="black" />
-            </button>
-          </div>
-          <div className="text-neutral-500 text-xs flex items-center justify-center gap-2 font-bold uppercase tracking-widest">
-            <ListOrdered size={14} /> 10 Rounds • Grand Finale Judging
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (gameState === 'play') {
-    return (
-      <div className="min-h-screen bg-neutral-900 text-white flex flex-col font-sans">
-        <header className="p-4 border-b border-neutral-800 flex justify-between items-center bg-neutral-900/80 backdrop-blur-md sticky top-0 z-50">
-          <div className="flex items-center gap-4">
-            <h2 className="font-black text-xl tracking-tighter">AAH</h2>
-            <div className="bg-white text-black text-[10px] font-black px-2 py-1 rounded-full uppercase tracking-tighter">ROUND {roundNumber}/{MAX_ROUNDS}</div>
-          </div>
-          <div className="text-xs font-black text-neutral-400 uppercase tracking-widest">
-            <span className="text-white">{players[currentPlayerIdx].name}</span> is picking
-          </div>
-        </header>
-
-        <main className="flex-1 p-6 max-w-5xl mx-auto w-full space-y-8 mb-24">
-          <div className="flex justify-center animate-in fade-in slide-in-from-top-4 duration-500">
-            <div className="w-64 h-80 bg-black border-2 border-neutral-800 rounded-2xl p-6 shadow-2xl flex flex-col justify-between relative overflow-hidden ring-1 ring-white/10">
-              <p className="text-xl font-bold leading-tight z-10" dangerouslySetInnerHTML={{ __html: roundBlackCard?.text.replace(/_/g, '<span class="border-b-2 border-white px-4 inline-block mx-1 min-w-[60px]"></span>') }} />
-              <span className="text-[10px] font-black tracking-widest opacity-20 uppercase z-10">APP AGAINST HUMANITY</span>
-              <div className="absolute top-0 right-0 p-4 opacity-5">
-                <Users size={120} />
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-            {players[currentPlayerIdx].hand.map((card, i) => (
-              <button
-                key={i}
-                onClick={() => setSelectedWhiteCard(card)}
-                className={`aspect-[3/4] bg-white text-black p-4 text-left font-bold text-xs sm:text-sm rounded-xl transition-all shadow-lg transform hover:-translate-y-1 active:scale-95 flex flex-col justify-between ${selectedWhiteCard === card ? 'ring-4 ring-blue-500 scale-105 z-10' : 'opacity-90 hover:opacity-100 ring-1 ring-black/5'}`}
-              >
-                <span>{card}</span>
-                <span className="block text-[8px] font-black opacity-20 uppercase tracking-tighter">APP AGAINST HUMANITY</span>
-              </button>
-            ))}
-          </div>
-        </main>
-
-        <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-neutral-900 via-neutral-900/90 to-transparent flex justify-center z-50">
-          <button
-            disabled={!selectedWhiteCard}
-            onClick={submitResponse}
-            className="w-full max-w-xs py-4 bg-white text-black disabled:bg-neutral-800 disabled:text-neutral-600 font-black rounded-2xl shadow-2xl flex items-center justify-center gap-2 transition-all active:scale-95 border border-white/10 text-lg uppercase tracking-tight"
-          >
-            {selectedWhiteCard ? "CONFIRM CARD" : "SELECT A CARD"} <ChevronRight size={18} />
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  if (gameState === 'judging') {
-    return (
-      <div className="min-h-screen bg-neutral-900 text-white flex flex-col font-sans">
-        <header className="p-6 text-center border-b border-neutral-800 bg-black/50 sticky top-0 z-50 backdrop-blur-xl">
-          <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic">GRAND FINALE</h2>
-          <p className="text-neutral-500 font-bold text-[10px] uppercase tracking-[0.2em] mt-1">Review & Vote for the best pairings</p>
-        </header>
-
-        <main className="flex-1 p-6 max-w-2xl mx-auto w-full space-y-12 pb-32">
-          {allSubmissions.map((sub, i) => (
-            <div key={i} className={`group relative bg-neutral-900 border-2 rounded-3xl p-8 transition-all shadow-2xl overflow-hidden ${sub.voted ? 'border-green-500/30 opacity-40 grayscale' : 'border-neutral-800 hover:border-neutral-600'}`}>
-              <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-                 <span className="text-8xl font-black italic">#{Math.floor(i / 2) + 1}</span>
-              </div>
-              
-              <div className="mb-4 flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-neutral-800 flex items-center justify-center font-black text-[10px] border border-neutral-700">
-                  {i + 1}
-                </div>
-                <div className="text-[10px] font-black text-neutral-500 uppercase tracking-widest">
-                   Submission by {sub.playerName}
-                </div>
-              </div>
-
-              <p className="text-2xl font-bold leading-relaxed mb-8 relative z-10" dangerouslySetInnerHTML={{ 
-                __html: sub.blackCard.text.replace(/_/g, `<span class="bg-white text-black px-2 py-0.5 rounded-lg inline-block my-1 mx-1 shadow-lg transform -rotate-1">${sub.whiteCard}</span>`) 
-              }} />
-
-              {!sub.voted ? (
-                <button 
-                  onClick={() => voteForSubmission(i)}
-                  className="w-full py-4 bg-white text-black font-black rounded-2xl hover:bg-green-400 transition-colors flex items-center justify-center gap-2 uppercase tracking-tighter"
-                >
-                  BEST RESPONSE <CheckCircle2 size={18} />
-                </button>
-              ) : (
-                <div className="text-center text-green-500 font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 py-4 bg-green-500/10 rounded-2xl">
-                   VOTED <CheckCircle2 size={18} />
-                </div>
-              )}
-            </div>
-          ))}
-        </main>
-      </div>
-    );
-  }
-
-  if (gameState === 'winner') {
-    const winner = players[0].score >= players[1].score ? players[0] : players[1];
-    const isTie = players[0].score === players[1].score;
-
-    return (
-      <div className="min-h-screen bg-neutral-950 text-white flex flex-col items-center justify-center p-6 text-center font-sans relative overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 blur-[120px] rounded-full pointer-events-none"></div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
         
-        <div className="relative z-10 max-w-md w-full animate-in zoom-in duration-700">
-          <div className="bg-white text-black p-8 rounded-full inline-block mb-8 shadow-[0_0_50px_rgba(255,255,255,0.2)]">
-            <Trophy size={64} strokeWidth={2.5} />
-          </div>
-          
-          <h1 className="text-6xl font-black mb-4 tracking-tighter uppercase italic leading-none">{isTie ? "DRAW!" : `${winner.name}`}</h1>
-          <p className="text-neutral-500 font-bold uppercase tracking-[0.3em] text-sm mb-12">{isTie ? "HUMANITY IS THE LOSER" : "IS THE CHAMPION"}</p>
-          
-          <div className="grid grid-cols-2 gap-4 mb-12">
-            {players.map(p => (
-              <div key={p.id} className={`p-6 rounded-3xl border-2 transition-all ${p.id === winner.id && !isTie ? 'bg-white text-black border-white' : 'bg-neutral-900 border-neutral-800'}`}>
-                <div className={`text-[10px] font-black uppercase mb-1 ${p.id === winner.id && !isTie ? 'text-neutral-600' : 'text-neutral-500'}`}>{p.name}</div>
-                <div className="text-5xl font-black tabular-nums">{p.score}</div>
-                <div className="text-[10px] font-black uppercase mt-1 opacity-50">VOTES</div>
-              </div>
-            ))}
-          </div>
-          
-          <div className="flex flex-col gap-3">
-            <button 
-              onClick={() => setGameState('setup')}
-              className="bg-white text-black w-full py-5 rounded-3xl font-black text-xl flex items-center justify-center gap-3 hover:bg-neutral-200 transition-all active:scale-95 shadow-2xl uppercase tracking-tighter"
-            >
-              REMATCH <RotateCcw size={24} />
-            </button>
-            <button 
-              onClick={shareResults}
-              className="bg-neutral-800 text-white w-full py-4 rounded-3xl font-black text-sm flex items-center justify-center gap-2 hover:bg-neutral-700 transition-all active:scale-95 uppercase tracking-widest border border-neutral-700"
-            >
-              {copyFeedback ? "COPIED!" : "COPY RESULTS"} {copyFeedback ? <CheckCircle2 size={18} /> : <Copy size={18} />}
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
+        // Inline SVG Icons as Lucide script might need helper
+        const Trophy = () => <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>;
+        const Play = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>;
+        const RotateCcw = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>;
+        const CheckCircle2 = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>;
 
-  return null;
-};
+        const CARDS_DATABASE = {
+            blackCards: [
+                { text: "What's that smell?", pick: 1 },
+                { text: "I drink to forget _.", pick: 1 },
+                { text: "That's how I want to die: _.", pick: 1 },
+                { text: "What's the next Happy Meal toy?", pick: 1 },
+                { text: "What's my secret superpower?", pick: 1 },
+                { text: "Why am I sticky?", pick: 1 },
+                { text: "I'm not like other girls. I _.", pick: 1 },
+                { text: "What gives me uncontrollable gas?", pick: 1 },
+                { text: "I got 99 problems but _ ain't one.", pick: 1 },
+                { text: "Maybe she's born with it. Maybe it's _.", pick: 1 },
+                { text: "What is Batman's guilty pleasure?", pick: 1 },
+                { text: "Why am I so broke?", pick: 1 }
+            ],
+            whiteCards: [
+                "A bit of slap and tickle.", "Active listening.", "An oversized lollipop.", "Dying.", "Eating all of the cookies.", "Friendly fire.", "Grandma.", "Hormone injections.", "My soul.", "Natural selection.", "Old-people smell.", "Poor life choices.", "Puberty.", "The Pope.", "Waiting till marriage.", "Florida Man.", "Student loans.", "Existential dread.", "Taco Bell.", "A tiny horse.", "Tax fraud.", "Gluten-free bread.", "A weirdly specific fetish.", "Meme culture.", "The truth.", "A lie."
+            ]
+        };
 
-export default App;
+        const MAX_ROUNDS = 5; // Shortened for demo, change to 10 for full game
+
+        const App = () => {
+            const [gameState, setGameState] = useState('setup');
+            const [players, setPlayers] = useState([
+                { id: 1, name: 'Player 1', score: 0, hand: [] },
+                { id: 2, name: 'Player 2', score: 0, hand: [] }
+            ]);
+            const [roundNumber, setRoundNumber] = useState(1);
+            const [currentPlayerIdx, setCurrentPlayerIdx] = useState(0);
+            const [roundBlackCard, setRoundBlackCard] = useState(null);
+            const [allSubmissions, setAllSubmissions] = useState([]);
+            const [selectedWhiteCard, setSelectedWhiteCard] = useState(null);
+            const [deck, setDeck] = useState({ black: [], white: [] });
+
+            const shuffle = (array) => [...array].sort(() => Math.random() - 0.5);
+
+            const startGame = () => {
+                const whiteDeck = shuffle(CARDS_DATABASE.whiteCards);
+                const blackDeck = shuffle(CARDS_DATABASE.blackCards);
+                const initialPlayers = players.map((p, idx) => ({
+                    ...p, score: 0, hand: whiteDeck.slice(idx * 10, (idx * 10) + 10) 
+                }));
+                setDeck({ white: whiteDeck.slice(20), black: blackDeck.slice(1) });
+                setPlayers(initialPlayers);
+                setRoundBlackCard(blackDeck[0]);
+                setRoundNumber(1);
+                setCurrentPlayerIdx(0);
+                setAllSubmissions([]);
+                setGameState('play');
+            };
+
+            const submitResponse = () => {
+                const newSub = {
+                    playerIdx: currentPlayerIdx,
+                    playerName: players[currentPlayerIdx].name,
+                    blackCard: roundBlackCard,
+                    whiteCard: selectedWhiteCard,
+                    voted: false
+                };
+                const newAllSubmissions = [...allSubmissions, newSub];
+                const updatedPlayers = players.map((p, idx) => idx === currentPlayerIdx ? { ...p, hand: p.hand.filter(c => c !== selectedWhiteCard) } : p);
+                
+                setPlayers(updatedPlayers);
+                setSelectedWhiteCard(null);
+
+                if (currentPlayerIdx === 0) {
+                    setCurrentPlayerIdx(1);
+                } else {
+                    if (roundNumber < MAX_ROUNDS) {
+                        setRoundNumber(roundNumber + 1);
+                        setCurrentPlayerIdx(0);
+                        setRoundBlackCard(deck.black[0]);
+                        setDeck({ ...deck, black: deck.black.slice(1) });
+                    } else {
+                        setGameState('judging');
+                    }
+                }
+                setAllSubmissions(newAllSubmissions);
+            };
+
+            const voteForSubmission = (idx) => {
+                const updatedPlayers = [...players];
+                updatedPlayers[allSubmissions[idx].playerIdx].score += 1;
+                setPlayers(updatedPlayers);
+                const updatedSubs = allSubmissions.map((s, i) => i === idx ? { ...s, voted: true } : s);
+                setAllSubmissions(updatedSubs);
+                if (updatedSubs.every(s => s.voted)) setGameState('winner');
+            };
+
+            if (gameState === 'setup') return (
+                <div className="min-h-screen text-white flex flex-col items-center justify-center p-6">
+                    <div className="max-w-md w-full text-center space-y-8">
+                        <h1 className="text-6xl font-black tracking-tighter uppercase italic">APP</h1>
+                        <div className="bg-neutral-800 p-8 rounded-3xl border border-neutral-700 shadow-2xl space-y-6">
+                            {players.map((p, i) => (
+                                <input key={p.id} className="w-full bg-neutral-900 border border-neutral-700 rounded-xl px-4 py-3 font-bold text-white outline-none focus:ring-2 focus:ring-white" value={p.name} onChange={(e) => {
+                                    const n = [...players]; n[i].name = e.target.value; setPlayers(n);
+                                }} />
+                            ))}
+                            <button onClick={startGame} className="w-full bg-white text-black py-4 rounded-2xl font-black text-lg flex items-center justify-center gap-2">START <Play /></button>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            if (gameState === 'play') return (
+                <div className="min-h-screen text-white flex flex-col">
+                    <header className="p-4 border-b border-neutral-800 flex justify-between bg-neutral-900/80 sticky top-0 z-50">
+                        <div className="font-black">AAH</div>
+                        <div className="text-xs font-black uppercase tracking-widest text-neutral-400">ROUND {roundNumber} - <span className="text-white">{players[currentPlayerIdx].name}</span></div>
+                    </header>
+                    <main className="p-6 max-w-4xl mx-auto w-full flex flex-col items-center gap-8">
+                        <div className="w-64 h-80 bg-black border-2 border-neutral-800 rounded-2xl p-6 flex flex-col justify-between shadow-2xl">
+                            <p className="text-xl font-bold leading-tight" dangerouslySetInnerHTML={{ __html: roundBlackCard?.text.replace(/_/g, '<span class="border-b-2 border-white px-4"></span>') }} />
+                            <span className="text-[10px] font-black opacity-20">APP AGAINST HUMANITY</span>
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-24">
+                            {players[currentPlayerIdx].hand.map((card, i) => (
+                                <button key={i} onClick={() => setSelectedWhiteCard(card)} className={`aspect-[3/4] bg-white text-black p-4 text-left font-bold text-sm rounded-xl transition-all ${selectedWhiteCard === card ? 'ring-4 ring-blue-500 scale-105' : 'opacity-90'}`}>{card}</button>
+                            ))}
+                        </div>
+                    </main>
+                    <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-neutral-900 flex justify-center">
+                        <button disabled={!selectedWhiteCard} onClick={submitResponse} className="w-full max-w-xs py-4 bg-white text-black font-black rounded-2xl disabled:opacity-50 uppercase">Confirm Choice</button>
+                    </div>
+                </div>
+            );
+
+            if (gameState === 'judging') return (
+                <div className="min-h-screen text-white p-6 max-w-xl mx-auto space-y-8">
+                    <h2 className="text-3xl font-black text-center italic">JUDGING</h2>
+                    {allSubmissions.map((sub, i) => (
+                        <div key={i} className={`p-8 bg-neutral-800 border-2 rounded-3xl ${sub.voted ? 'opacity-30 border-green-500' : 'border-neutral-700'}`}>
+                            <p className="text-xl font-bold mb-6" dangerouslySetInnerHTML={{ __html: sub.blackCard.text.replace(/_/g, `<span class="bg-white text-black px-2 rounded mx-1">${sub.whiteCard}</span>`) }} />
+                            {!sub.voted && <button onClick={() => voteForSubmission(i)} className="w-full py-3 bg-white text-black font-black rounded-xl uppercase">Vote</button>}
+                        </div>
+                    ))}
+                </div>
+            );
+
+            if (gameState === 'winner') return (
+                <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center space-y-6">
+                    <Trophy />
+                    <h1 className="text-6xl font-black uppercase italic">Game Over</h1>
+                    <div className="flex gap-12">
+                        {players.map(p => <div key={p.id}><div className="text-xs text-neutral-500 uppercase">{p.name}</div><div className="text-5xl font-black">{p.score}</div></div>)}
+                    </div>
+                    <button onClick={() => setGameState('setup')} className="bg-white text-black px-12 py-4 rounded-2xl font-black flex items-center gap-2">REMATCH <RotateCcw /></button>
+                </div>
+            );
+
+            return null;
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
