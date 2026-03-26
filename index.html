@@ -11,9 +11,9 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
-        body { font-family: 'Ubuntu', sans-serif; background-color: #111; color: white; margin: 0; }
+        body { font-family: 'Ubuntu', sans-serif; background-color: #111; color: white; margin: 0; overflow-x: hidden; }
         .black-card { background-color: #000; border: 2px solid #262626; width: 18.9rem; height: 25.2rem; }
-        .white-card { background-color: #fff; color: #000; min-height: 14rem; cursor: pointer; }
+        .white-card { background-color: #fff; color: #000; min-height: 14rem; cursor: pointer; transition: all 0.2s ease; }
         .animate-pop { animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes pop { 0% { transform: scale(0.92); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
@@ -42,14 +42,106 @@
                 { text: "He who controls _ controls the universe.", pick: 1 },
                 { text: "What gives me uncontrollable gas?", pick: 1 },
                 { text: "What are my parents hiding from me?", pick: 1 },
-                { text: "Coming to Broadway this season: _: The Musical.", pick: 1 }
+                { text: "Coming to Broadway this season: _: The Musical.", pick: 1 },
+                { text: "Next from J.K. Rowling: Harry Potter and the Chamber of _.", pick: 1 },
+                { text: "Step 1: _. Step 2: _. Step 3: Profit.", pick: 1 },
+                { text: "What's the next Happy Meal toy?", pick: 1 },
+                { text: "TSA guidelines now prohibit _ on airplanes.", pick: 1 },
+                { text: "What ended my last relationship?", pick: 1 },
+                { text: "What's the most emo thing ever?", pick: 1 },
+                { text: "Maybe she's born with it. Maybe it's _.", pick: 1 },
+                { text: "While the United States raced the Soviet Union to the moon, Mexico spent most of its budget on _.", pick: 1 },
+                { text: "But before I kill you, Mr. Bond, I must show you _.", pick: 1 },
+                { text: "White people like _.", pick: 1 },
+                { text: "War! What is it good for?", pick: 1 },
+                { text: "In M. Night Shyamalan's new movie, Bruce Willis discovers that he had been _ all along.", pick: 1 },
+                { text: "Introducing the new X-box with _.", pick: 1 },
+                { text: "A romantic, candlelit dinner would be incomplete without _.", pick: 1 },
+                { text: "When I am President of the United States, I will create the Department of _.", pick: 1 },
+                { text: "I learned the hard way that you can't solve your problems with _.", pick: 1 },
+                { text: "What helps Obama relax?", pick: 1 },
+                { text: "What's the new fad diet?", pick: 1 },
+                { text: "What's Teach for America's newest addition to the curriculum?", pick: 1 },
+                { text: "The class field trip was completely ruined by _.", pick: 1 },
+                { text: "What will always get you laid?", pick: 1 },
+                { text: "Kids, I don't need drugs to get high. I'm high on _.", pick: 1 },
+                { text: "Anthropologists have recently discovered a primitive tribe that worships _.", pick: 1 },
+                { text: "It's a pity that kids these days are all getting involved with _.", pick: 1 },
+                { text: "What's my anti-drug?", pick: 1 },
+                { text: "In an attempt to reach a wider audience, the Smithsonian Museum of Natural History has opened an interactive exhibit on _.", pick: 1 },
+                { text: "What's the gift that keeps on giving?", pick: 1 },
+                { text: "What are the keys to a long-lasting marriage?", pick: 1 },
+                { text: "My gym teacher got fired for _.", pick: 1 },
+                { text: "What did I bring back from Mexico?", pick: 1 },
+                { text: "Science will never explain _.", pick: 1 },
+                { text: "During high school, I was known as the kid who was obsessed with _.", pick: 1 },
+                { text: "What's the best way to get over a breakup?", pick: 1 },
+                { text: "I'm sorry, Professor, but I couldn't finish my homework because of _.", pick: 1 },
+                { text: "I'm not like the other girls. I'm _.", pick: 1 },
+                { text: "When I am a billionaire, I shall erect a 50-foot statue to commemorate _.", pick: 1 },
+                { text: "Next on ESPN2: The World Series of _.", pick: 1 },
+                { text: "Alternative medicine is now embracing the curative powers of _.", pick: 1 },
+                { text: "What's the most metal thing ever?", pick: 1 },
+                { text: "I'm having a mid-life crisis. I just bought _.", pick: 1 },
+                { text: "What's my middle name?", pick: 1 },
+                { text: "What did the US airdrop to the children of Afghanistan?", pick: 1 },
+                { text: "I get by with a little help from _.", pick: 1 },
+                { text: "What did Grandma find disturbing, yet oddly charming?", pick: 1 },
+                { text: "MTV's new reality show features eight washed-up celebrities living with _.", pick: 1 },
+                { text: "A successful job interview starts with a firm handshake and ends with _.", pick: 1 },
+                { text: "Why am I sticky?", pick: 1 },
+                { text: "What's that sound?", pick: 1 },
+                { text: "What will I bring back in time to convince people that I am a powerful wizard?", pick: 1 },
+                { text: "Studies show that lab rats navigate mazes 50% faster after being exposed to _.", pick: 1 },
+                { text: "After the earthquake, Sean Penn brought _ to the people of Haiti.", pick: 1 },
+                { text: "What am I giving up for Lent?", pick: 1 },
+                { text: "What does the Fox say?", pick: 1 },
+                { text: "Why do I hurt all over?", pick: 1 },
+                { text: "Instead of coal, Santa now gives the naughty children _.", pick: 1 },
+                { text: "What's there a lot of in heaven?", pick: 1 },
+                { text: "What would Grandma find most disturbing?", pick: 1 },
+                { text: "If you can't be with the one you love, love _.", pick: 1 },
+                { text: "Hey baby, want to see my _?", pick: 1 },
+                { text: "What's the meaning of life?", pick: 1 },
+                { text: "Click here for _.", pick: 1 },
+                { text: "My life is ruled by _.", pick: 1 },
+                { text: "I'm not crying, it's just _ in my eye.", pick: 1 },
+                { text: "What's the latest Silicon Valley trend?", pick: 1 },
+                { text: "What's my spirit animal?", pick: 1 },
+                { text: "I'm so hungry I could eat _.", pick: 1 },
+                { text: "What's the best way to hide a body?", pick: 1 },
+                { text: "The new fragrance from Chanel is called _.", pick: 1 },
+                { text: "What is my true passion?", pick: 1 },
+                { text: "The 10th Circle of Hell is reserved for _.", pick: 1 },
+                { text: "What did the Romans do for us?", pick: 1 },
+                { text: "I can't believe it's not _.", pick: 1 },
+                { text: "Who let the dogs out?", pick: 1 },
+                { text: "The secret to a happy life is _.", pick: 1 },
+                { text: "What's the worst thing that could happen?", pick: 1 },
+                { text: "How did I lose my virginity?", pick: 1 },
+                { text: "Welcome to the jungle, we've got _.", pick: 1 },
+                { text: "Where does the white go when the snow melts?", pick: 1 },
+                { text: "I have a dream: a dream of _.", pick: 1 },
+                { text: "What's in the box?", pick: 1 },
+                { text: "What's the first thing you do when you win the lottery?", pick: 1 },
+                { text: "What's the most expensive thing you've ever bought?", pick: 1 },
+                { text: "What's your biggest fear?", pick: 1 },
+                { text: "Why am I still single?", pick: 1 },
+                { text: "What is the capital of _?", pick: 1 },
+                { text: "What's the best advice you've ever received?", pick: 1 },
+                { text: "Who stole the cookies from the cookie jar?", pick: 1 },
+                { text: "What's the world's best kept secret?", pick: 1 },
+                { text: "What's the most annoying sound in the world?", pick: 1 },
+                { text: "Why did the chicken cross the road?", pick: 1 },
+                { text: "What's the best thing since sliced bread?", pick: 1 },
+                { text: "What's the real reason I'm late?", pick: 1 }
             ],
             whiteCards: [
-                "Tax fraud.", "Aggressive yoga.", "A salty surprise.", "Existential dread.", "Florida Man.", "Bees?", "The Patriarchy.", "Gluten-free bread.", "Passive-aggressive Post-it notes.", "The Kool-Aid Man.", "A literal mountain of cocaine.", "Self-loathing.", "A disappointment to my parents.", "Taco Bell.", "A tiny horse.", "Mansplaining.", "Avocado toast.", "Social media validation.", "An unsolicited photo.", "The simulation crashing.", "Cryptocurrency scams."
+                "Tax fraud.", "Aggressive yoga.", "A salty surprise.", "Existential dread.", "Florida Man.", "Bees?", "The Patriarchy.", "Gluten-free bread.", "Passive-aggressive Post-it notes.", "The Kool-Aid Man.", "A literal mountain of cocaine.", "Self-loathing.", "A disappointment to my parents.", "Taco Bell.", "A tiny horse.", "Mansplaining.", "Avocado toast.", "Social media validation.", "An unsolicited photo.", "The simulation crashing.", "Cryptocurrency scams.", "Danny DeVito.", "A logical explanation.", "Hot cheese.", "The screams of the innocent.", "Justin Bieber.", "A windmill full of corpses.", "Actually taking a nap.", "Vigorous jazz hands.", "The trail of tears.", "Waking up half-naked in a Denny's parking lot.", "Morgan Freeman's voice.", "Being a motherfucking sorcerer.", "A bag of magic beans.", "The unstoppable tide of Islam.", "A brain tumor.", "Chunks of dead prostitute.", "72 virgins.", "Sexting.", "Licking things to claim them as your own.", "Genital piercing.", "The heart of a child.", "A bunch of idiots playing Cards Against Humanity.", "Waiting till marriage.", "The moist, flapping wings of a thousand bats.", "A middle-aged man on a roller coaster.", "The glass ceiling.", "The Bachelorette.", "A defective condom.", "Drinking alone.", "The token minority.", "My inner demons.", "Accepting the inevitable.", "An asymmetric face.", "Pretending to care.", "Mutually assured destruction.", "A slightly charred baby.", "Testicular torsion.", "Flesh-eating bacteria.", "Goblins.", "Being rich.", "Hospice care.", "A bowl of mayonnaise and human hair.", "Instructional porn.", "A time-traveling paradox.", "Public ridicule.", "Kanye West.", "A web of lies.", "Committing a felony.", "The miracle of childbirth.", "Smallpox blankets.", "Crying into a pint of ice cream.", "A slowly peeling sunburn.", "The Big Bang.", "An honest-to-God miracle.", "A negative body image.", "Poor people.", "The Holy Bible.", "Grandma.", "A super-massive black hole.", "Farting and walking away.", "Dead parents.", "A mime having a stroke.", "Mecha-Hitler.", "Getting really high.", "Object permanence.", "The Uber driver's personal problems.", "Two midgets shitting in a bucket.", "Child beauty pageants.", "Fingering.", "An unwanted pregnancy.", "A low-speed chase.", "The entire population of China.", "The Devil himself.", "A sea of burning oil.", "The scent of fear.", "Totalitarianism.", "A box of kittens.", "An AK-47.", "A botched boob job.", "Free samples.", "Science.", "A PowerPoint presentation.", "The KKK.", "Police brutality.", "A balanced breakfast.", "Genocide.", "A hot mess.", "The French.", "A subscription to Juggs.", "Explaining the joke.", "The feeling of wet socks.", "Adult friendship.", "A lifetime of sadness.", "Being a total bitch.", "Natural selection.", "The American Dream.", "Emotional baggage.", "Civilian casualties.", "A pyramid scheme.", "An old man's saggy ballsack.", "The Rapture.", "The Gaza Strip.", "Self-flagellation.", "A box within a box.", "Historical revisionism.", "A basic white girl.", "The inevitable heat death of the universe.", "A face-to-face meeting.", "Capitalism.", "A man-cave.", "Hormone replacement therapy.", "The rhythm of the night.", "A very small hat.", "A sense of accomplishment.", "The entire Mormon Tabernacle Choir.", "The systematic oppression of the working class.", "A bag of frozen peas.", "A long-winded story about nothing.", "The sound of one hand clapping.", "A high-fructose corn syrup addiction.", "An unexpected finger up the butt.", "A meaningful connection.", "The sheer audacity of this bitch.", "A lukewarm bath.", "A moderate amount of success.", "The haunting beauty of a garbage fire."
             ]
         };
 
-        const MAX_ROUNDS = 5; // Reduced for quick testing
+        const MAX_ROUNDS = 5;
 
         const App = () => {
             const [gameState, setGameState] = useState('auth');
@@ -69,13 +161,17 @@
             // --- THE FIX: Answer Rendering Logic ---
             const renderCardContent = (blackText, whiteText) => {
                 if (!whiteText) return blackText;
-                const formattedWhite = `<span class="bg-white text-black px-3 py-1 rounded-lg mx-1 inline-block transform -rotate-1 shadow-md font-bold">${whiteText}</span>`;
+                
+                // Styled white card component as string
+                const formattedWhite = `<span class="bg-white text-black px-3 py-1.5 rounded-xl mx-1 inline-block transform -rotate-1 shadow-lg font-black border-2 border-black/10 ring-1 ring-white/20">${whiteText}</span>`;
                 
                 // If black card has an underscore, replace it.
                 if (blackText.includes('_')) {
+                    // Logic for double blanks in future (split by _, replace each)
                     return blackText.replace('_', formattedWhite);
                 }
-                // If no underscore (Question type), append it to the end.
+                
+                // If it's a question or statement without a blank, append to end
                 return `${blackText} ${formattedWhite}`;
             };
 
@@ -92,9 +188,9 @@
                 const blackDeck = [...CARDS_DATABASE.blackCards].sort(() => Math.random() - 0.5);
                 
                 setPlayers(players.map((p, idx) => ({
-                    ...p, score: 0, hand: whiteDeck.slice(idx * 8, (idx * 8) + 8) 
+                    ...p, score: 0, hand: whiteDeck.slice(idx * 10, (idx * 10) + 10) 
                 })));
-                setDeck({ white: whiteDeck.slice(16), black: blackDeck.slice(0, MAX_ROUNDS) });
+                setDeck({ white: whiteDeck.slice(20), black: blackDeck.slice(0, MAX_ROUNDS) });
                 setRoundBlackCard(blackDeck[0]);
                 setRoundNumber(1);
                 setCurrentPlayerIdx(0);
@@ -108,7 +204,7 @@
                     id: `r${roundNumber}-p${currentPlayerIdx}-${Date.now()}`,
                     playerIdx: currentPlayerIdx,
                     playerName: players[currentPlayerIdx].name,
-                    blackCard: roundBlackCard,
+                    blackCard: { ...roundBlackCard }, // Clone to avoid reference issues
                     whiteCard: selectedWhiteCard,
                     round: roundNumber,
                     winner: false
@@ -151,11 +247,11 @@
             // --- Views ---
             if (gameState === 'auth') return (
                 <div className="min-h-screen flex items-center justify-center bg-neutral-900 p-6">
-                    <form onSubmit={handleLogin} className="bg-neutral-800 p-10 rounded-[40px] border border-neutral-700 w-full max-w-sm text-center animate-pop">
-                        <h2 className="text-3xl font-black uppercase italic mb-8">Auth Required</h2>
-                        <input type="text" placeholder="User" className="w-full bg-neutral-900 border border-neutral-700 rounded-2xl px-6 py-4 mb-4" onChange={e => setAuthInput({...authInput, username: e.target.value})} />
-                        <input type="password" placeholder="Pass" className="w-full bg-neutral-900 border border-neutral-700 rounded-2xl px-6 py-4 mb-8" onChange={e => setAuthInput({...authInput, password: e.target.value})} />
-                        <button type="submit" className="w-full bg-white text-black py-4 rounded-2xl font-black uppercase">Enter</button>
+                    <form onSubmit={handleLogin} className="bg-neutral-800 p-10 rounded-[40px] border border-neutral-700 w-full max-w-sm text-center animate-pop shadow-2xl">
+                        <h2 className="text-3xl font-black uppercase italic mb-8 tracking-tighter">Identity Check</h2>
+                        <input type="text" placeholder="Username" className="w-full bg-neutral-900 border border-neutral-700 rounded-2xl px-6 py-4 mb-4 focus:ring-2 ring-white/10 outline-none" onChange={e => setAuthInput({...authInput, username: e.target.value})} />
+                        <input type="password" placeholder="Password" className="w-full bg-neutral-900 border border-neutral-700 rounded-2xl px-6 py-4 mb-8 focus:ring-2 ring-white/10 outline-none" onChange={e => setAuthInput({...authInput, password: e.target.value})} />
+                        <button type="submit" className="w-full bg-white text-black py-4 rounded-2xl font-black uppercase hover:bg-neutral-200 transition-colors">Confirm</button>
                     </form>
                 </div>
             );
@@ -163,40 +259,50 @@
             if (gameState === 'setup') return (
                 <div className="min-h-screen flex items-center justify-center bg-neutral-900 p-6">
                     <div className="bg-neutral-800 p-10 rounded-[40px] border border-neutral-700 w-full max-w-md text-center animate-pop">
-                        <h1 className="text-6xl font-black italic mb-10">AAH</h1>
+                        <h1 className="text-7xl font-black italic mb-10 tracking-tighter">AAH</h1>
+                        <p className="text-xs font-black text-neutral-500 uppercase mb-8 tracking-[0.2em]">Enter Player Names</p>
                         {players.map((p, i) => (
-                            <input key={p.id} className="w-full bg-neutral-900 border border-neutral-700 rounded-2xl px-6 py-4 mb-4 font-bold" value={p.name} onChange={e => {
+                            <input key={p.id} className="w-full bg-neutral-900 border border-neutral-700 rounded-2xl px-6 py-4 mb-4 font-bold text-center" value={p.name} onChange={e => {
                                 const n = [...players]; n[i].name = e.target.value; setPlayers(n);
                             }} />
                         ))}
-                        <button onClick={startGame} className="w-full bg-white text-black py-5 rounded-2xl font-black text-xl uppercase mt-4">Start Game</button>
+                        <button onClick={startGame} className="w-full bg-white text-black py-5 rounded-2xl font-black text-xl uppercase mt-4 hover:scale-[1.02] transition-transform">Begin Game</button>
                     </div>
                 </div>
             );
 
             if (gameState === 'play') return (
                 <div className="min-h-screen flex flex-col pb-32">
-                    <header className="p-6 border-b border-neutral-800 flex justify-between items-center">
+                    <header className="p-6 border-b border-neutral-800 flex justify-between items-center backdrop-blur-md sticky top-0 z-50">
                         <div className="font-black text-2xl italic">AAH</div>
-                        <div className="bg-neutral-800 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest">
-                            Round {roundNumber} • {players[currentPlayerIdx].name}'s Turn
+                        <div className="flex items-center gap-4">
+                            <div className="bg-neutral-800 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest border border-neutral-700">
+                                Round {roundNumber}
+                            </div>
+                            <div className="text-sm font-bold text-neutral-400">
+                                {players[currentPlayerIdx].name}'s Turn
+                            </div>
                         </div>
                     </header>
                     <main className="p-8 flex flex-col items-center gap-12 max-w-7xl mx-auto">
-                        <div className="black-card rounded-[32px] p-8 flex flex-col justify-between transform -rotate-1">
+                        <div className="black-card rounded-[32px] p-8 flex flex-col justify-between transform -rotate-1 shadow-2xl">
                             <p className="text-2xl font-bold leading-tight" dangerouslySetInnerHTML={{ __html: renderCardContent(roundBlackCard.text, "") }} />
-                            <span className="text-[10px] font-black opacity-30 uppercase">App Against Humanity</span>
+                            <div className="flex justify-between items-end">
+                                <span className="text-[10px] font-black opacity-30 uppercase">App Against Humanity</span>
+                                <div className="w-8 h-10 border-2 border-white/20 rounded-md"></div>
+                            </div>
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                            {players[currentPlayerIdx].hand.map(card => (
-                                <button key={card} onClick={() => setSelectedWhiteCard(card)} className={`white-card p-5 text-left rounded-2xl transition-all ${selectedWhiteCard === card ? 'ring-8 ring-blue-500 scale-105 z-10' : 'opacity-90 hover:-translate-y-1'}`}>
-                                    <span className="font-bold text-lg">{card}</span>
+                            {players[currentPlayerIdx].hand.map((card, idx) => (
+                                <button key={idx} onClick={() => setSelectedWhiteCard(card)} className={`white-card p-5 text-left rounded-2xl transition-all shadow-lg flex flex-col justify-between ${selectedWhiteCard === card ? 'ring-8 ring-white/30 scale-105 z-10 -translate-y-2' : 'hover:bg-neutral-100 hover:-translate-y-1'}`}>
+                                    <span className="font-bold text-lg leading-tight">{card}</span>
+                                    <span className="text-[9px] font-black opacity-20 uppercase mt-4">AAH</span>
                                 </button>
                             ))}
                         </div>
                     </main>
-                    <div className="fixed bottom-0 w-full p-8 bg-gradient-to-t from-black flex justify-center">
-                        <button disabled={!selectedWhiteCard} onClick={submitResponse} className="w-full max-w-sm py-6 bg-white text-black font-black rounded-3xl disabled:opacity-20 uppercase text-xl">Confirm Selection</button>
+                    <div className="fixed bottom-0 w-full p-8 bg-gradient-to-t from-black via-black/80 to-transparent flex justify-center z-50">
+                        <button disabled={!selectedWhiteCard} onClick={submitResponse} className="w-full max-w-sm py-6 bg-white text-black font-black rounded-[32px] disabled:opacity-20 uppercase text-xl shadow-2xl transition-all active:scale-95">Lock It In</button>
                     </div>
                 </div>
             );
@@ -204,14 +310,16 @@
             if (gameState === 'judging') return (
                 <div className="min-h-screen p-8 flex flex-col items-center justify-center space-y-12 animate-pop">
                     <div className="text-center">
-                        <div className="text-xs font-black uppercase text-neutral-500 mb-2">Grand Jury - Round {votingRoundIndex}</div>
-                        <h2 className="text-5xl font-black italic uppercase">Choose the Winner</h2>
+                        <div className="text-[10px] font-black uppercase text-neutral-500 mb-2 tracking-[0.3em]">Grand Jury Selection</div>
+                        <h2 className="text-5xl font-black italic uppercase tracking-tighter">Round {votingRoundIndex}</h2>
                     </div>
                     <div className="grid md:grid-cols-2 gap-8 w-full max-w-5xl">
                         {currentVotingGroup.map(sub => (
-                            <button key={sub.id} onClick={() => voteForSubmission(sub.id)} className="p-12 bg-neutral-800 border-2 border-neutral-700 rounded-[40px] text-left hover:border-white transition-all group">
-                                <p className="text-3xl font-bold leading-snug mb-8" dangerouslySetInnerHTML={{ __html: renderCardContent(sub.blackCard.text, sub.whiteCard) }} />
-                                <div className="flex items-center gap-2 text-neutral-500 group-hover:text-white font-black uppercase text-xs">Select this combo <ChevronRight /></div>
+                            <button key={sub.id} onClick={() => voteForSubmission(sub.id)} className="p-12 bg-neutral-800 border-2 border-neutral-700 rounded-[40px] text-left hover:border-white transition-all group shadow-xl">
+                                <p className="text-3xl font-bold leading-snug mb-10" dangerouslySetInnerHTML={{ __html: renderCardContent(sub.blackCard.text, sub.whiteCard) }} />
+                                <div className="flex items-center gap-2 text-neutral-500 group-hover:text-white font-black uppercase text-xs tracking-widest transition-colors">
+                                    Vote for this combo <ChevronRight />
+                                </div>
                             </button>
                         ))}
                     </div>
@@ -219,28 +327,36 @@
             );
 
             if (gameState === 'winner') return (
-                <div className="min-h-screen p-12 flex flex-col space-y-16 custom-scrollbar overflow-y-auto animate-pop">
+                <div className="min-h-screen p-12 flex flex-col space-y-16 custom-scrollbar overflow-y-auto animate-pop pb-32">
                     <div className="text-center flex flex-col items-center gap-4">
-                        <Trophy />
-                        <h1 className="text-7xl font-black uppercase italic tracking-tighter">Results</h1>
-                        <div className="flex gap-12 mt-4">
-                            {players.map(p => <div key={p.id} className="text-center"><div className="text-[10px] font-black uppercase text-neutral-500">{p.name}</div><div className="text-6xl font-black">{p.score}</div></div>)}
+                        <div className="mb-4"><Trophy /></div>
+                        <h1 className="text-7xl font-black uppercase italic tracking-tighter">Hall of Shame</h1>
+                        <div className="flex gap-12 mt-6 p-8 bg-neutral-800/50 rounded-[40px] border border-neutral-700">
+                            {players.map(p => (
+                                <div key={p.id} className="text-center min-w-[120px]">
+                                    <div className="text-[10px] font-black uppercase text-neutral-500 tracking-widest mb-1">{p.name}</div>
+                                    <div className="text-6xl font-black tracking-tighter">{p.score}</div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className="max-w-4xl mx-auto w-full space-y-6">
-                        <h2 className="text-2xl font-black uppercase italic border-b border-neutral-800 pb-2">Winning Combos</h2>
+                        <h2 className="text-xs font-black uppercase italic text-neutral-500 tracking-[0.4em] mb-4 text-center">Historical Submissions</h2>
                         {allSubmissions.filter(s => s.winner).sort((a,b) => a.round - b.round).map(sub => (
-                            <div key={sub.id} className="bg-neutral-800/50 p-10 rounded-[40px] border border-neutral-800 flex items-center gap-10 animate-pop">
-                                <div className="text-4xl font-black opacity-10">#{sub.round}</div>
+                            <div key={sub.id} className="bg-neutral-800/30 p-10 rounded-[40px] border border-neutral-800 flex items-center gap-10 animate-pop transition-colors hover:bg-neutral-800/50">
+                                <div className="text-5xl font-black opacity-10 italic">#{sub.round}</div>
                                 <div className="flex-1">
                                     <p className="text-3xl font-bold leading-tight" dangerouslySetInnerHTML={{ __html: renderCardContent(sub.blackCard.text, sub.whiteCard) }} />
-                                    <div className="text-[10px] font-black uppercase text-neutral-500 mt-4 tracking-widest">Won by {sub.playerName}</div>
+                                    <div className="flex items-center gap-3 mt-6">
+                                        <div className="h-0.5 w-6 bg-blue-500"></div>
+                                        <div className="text-[10px] font-black uppercase text-blue-500/80 tracking-widest">Masterpiece by {sub.playerName}</div>
+                                    </div>
                                 </div>
                             </div>
                         ))}
                     </div>
-                    <div className="flex justify-center pb-20">
-                        <button onClick={() => setGameState('setup')} className="bg-white text-black px-16 py-6 rounded-3xl font-black text-2xl uppercase shadow-2xl">New Battle</button>
+                    <div className="fixed bottom-0 left-0 w-full flex justify-center p-8 bg-gradient-to-t from-black z-50">
+                        <button onClick={() => setGameState('setup')} className="bg-white text-black px-20 py-6 rounded-[32px] font-black text-2xl uppercase shadow-2xl hover:scale-105 transition-transform active:scale-95">Reset Simulation</button>
                     </div>
                 </div>
             );
